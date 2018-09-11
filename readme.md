@@ -3,9 +3,8 @@
 # Android Clean Architecture Components Boilerplate
 
 
-Note: This is a fork of our original [Clean Architecture Boilerplate](https://github.com/bufferapp/android-clean-architecture-boilerplate), except in this repo we have switched out the MVP approach found in the presentation layer to now use ViewModels from the Android Architecture Components Library.
+Note: This is a fork of our original [Clean Architecture Boilerplate](https://github.com/bufferapp/android-clean-architecture-boilerplate), except in this repo we have switched out the MVP approach found in the presentation layer to now use ViewModels from the Android Architecture Components Library and Koin.
 The caching layer now also uses Room.
-
 
 Welcome 👋 We hope this boilerplate is not only helpful to other developers, but also that it helps to educate in the area of architecture. We created this boilerplate for a few reasons:
 
@@ -50,7 +49,7 @@ Clean Architecture will not be appropriate for every project, so it is down to y
 
 The architecture of the project follows the principles of Clean Architecture. Here's how the sample project implements it:
 
-![architecture](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/art/architecture.png?raw=true)
+![architecture](https://github.com/bufferapp/clean-architecture-koin-boilerplate/blob/master/art/architecture.png?raw=true)
 
 The sample app when run will show you a simple list of all the Bufferoos (Buffer team members!).
 <p align="center">
@@ -58,8 +57,6 @@ The sample app when run will show you a simple list of all the Bufferoos (Buffer
 </p>
 
 Let's look at each of the architecture layers and the role each one plays :)
-
-![architecture](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/art/ui.png?raw=true)
 
 ### Presentation
 
