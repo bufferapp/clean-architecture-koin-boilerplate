@@ -1,23 +1,18 @@
 package org.buffer.android.boilerplate.data.source
 
-import org.buffer.android.boilerplate.data.repository.BufferooCache
-import org.buffer.android.boilerplate.data.repository.BufferooDataStore
-import javax.inject.Inject
-
 /**
  * Create an instance of a BufferooDataStore
  */
-open class BufferooDataStoreFactory @Inject constructor(
-        private val bufferooCache: BufferooCache,
-        private val bufferooCacheDataStore: BufferooCacheDataStore,
-        private val bufferooRemoteDataStore: BufferooRemoteDataStore) {
+open class BufferooDataStoreFactory(
+        private val bufferooCacheDataStore: BufferooDataStore,
+        private val bufferooRemoteDataStore: BufferooDataStore) {
 
     /**
      * Returns a DataStore based on whether or not there is content in the cache and the cache
      * has not expired
      */
     open fun retrieveDataStore(isCached: Boolean): BufferooDataStore {
-        if (isCached && !bufferooCache.isExpired()) {
+        if (isCached && !bufferooCacheDataStore.isExpired()) {
             return retrieveCacheDataStore()
         }
         return retrieveRemoteDataStore()

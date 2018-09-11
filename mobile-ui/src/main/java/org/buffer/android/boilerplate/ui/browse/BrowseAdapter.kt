@@ -8,13 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.ui.R
-import org.buffer.android.boilerplate.ui.model.BufferooViewModel
-import javax.inject.Inject
 
-class BrowseAdapter @Inject constructor(): RecyclerView.Adapter<BrowseAdapter.ViewHolder>() {
+class BrowseAdapter : RecyclerView.Adapter<BrowseAdapter.ViewHolder>() {
 
-    var bufferoos: List<BufferooViewModel> = arrayListOf()
+    var bufferoos: List<Bufferoo> = arrayListOf()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bufferoo = bufferoos[position]

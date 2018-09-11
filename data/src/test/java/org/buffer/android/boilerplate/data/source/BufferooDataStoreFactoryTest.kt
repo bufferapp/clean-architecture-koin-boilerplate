@@ -3,8 +3,7 @@ package org.buffer.android.boilerplate.data.source
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
-import org.buffer.android.boilerplate.data.repository.BufferooCache
-import org.junit.Before
+import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -12,27 +11,18 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class BufferooDataStoreFactoryTest {
 
-    private lateinit var bufferooDataStoreFactory: BufferooDataStoreFactory
+    private val bufferooCacheDataStore = mock<BufferooDataStore>()
+    private val bufferooRemoteDataStore = mock<BufferooDataStore>()
 
-    private lateinit var bufferooCache: BufferooCache
-    private lateinit var bufferooCacheDataStore: BufferooCacheDataStore
-    private lateinit var bufferooRemoteDataStore: BufferooRemoteDataStore
-
-    @Before
-    fun setUp() {
-        bufferooCache = mock()
-        bufferooCacheDataStore = mock()
-        bufferooRemoteDataStore = mock()
-        bufferooDataStoreFactory = BufferooDataStoreFactory(bufferooCache,
-                bufferooCacheDataStore, bufferooRemoteDataStore)
-    }
+    private val bufferooDataStoreFactory = BufferooDataStoreFactory(
+            bufferooCacheDataStore, bufferooRemoteDataStore)
 
     //<editor-fold desc="Retrieve Data Store">
     @Test
     fun retrieveDataStoreWhenNotCachedReturnsRemoteDataStore() {
         stubBufferooCacheIsCached(Single.just(false))
         val bufferooDataStore = bufferooDataStoreFactory.retrieveDataStore(false)
-        assert(bufferooDataStore is BufferooRemoteDataStore)
+        assertTrue(bufferooDataStore == bufferooRemoteDataStore)
     }
 
     @Test
@@ -40,7 +30,7 @@ class BufferooDataStoreFactoryTest {
         stubBufferooCacheIsCached(Single.just(true))
         stubBufferooCacheIsExpired(true)
         val bufferooDataStore = bufferooDataStoreFactory.retrieveDataStore(true)
-        assert(bufferooDataStore is BufferooRemoteDataStore)
+        assertTrue(bufferooDataStore  == bufferooRemoteDataStore)
     }
 
     @Test
@@ -48,7 +38,7 @@ class BufferooDataStoreFactoryTest {
         stubBufferooCacheIsCached(Single.just(true))
         stubBufferooCacheIsExpired(false)
         val bufferooDataStore = bufferooDataStoreFactory.retrieveDataStore(true)
-        assert(bufferooDataStore is BufferooCacheDataStore)
+        assertTrue(bufferooDataStore  == bufferooCacheDataStore)
     }
     //</editor-fold>
 
@@ -56,7 +46,7 @@ class BufferooDataStoreFactoryTest {
     @Test
     fun retrieveRemoteDataStoreReturnsRemoteDataStore() {
         val bufferooDataStore = bufferooDataStoreFactory.retrieveRemoteDataStore()
-        assert(bufferooDataStore is BufferooRemoteDataStore)
+        assertTrue(bufferooDataStore  == bufferooRemoteDataStore)
     }
     //</editor-fold>
 
@@ -64,18 +54,18 @@ class BufferooDataStoreFactoryTest {
     @Test
     fun retrieveCacheDataStoreReturnsCacheDataStore() {
         val bufferooDataStore = bufferooDataStoreFactory.retrieveCacheDataStore()
-        assert(bufferooDataStore is BufferooCacheDataStore)
+        assertTrue(bufferooDataStore  == bufferooCacheDataStore)
     }
     //</editor-fold>
 
     //<editor-fold desc="Stub helper methods">
     private fun stubBufferooCacheIsCached(single: Single<Boolean>) {
-        whenever(bufferooCache.isCached())
+        whenever(bufferooCacheDataStore.isCached())
                 .thenReturn(single)
     }
 
     private fun stubBufferooCacheIsExpired(isExpired: Boolean) {
-        whenever(bufferooCache.isExpired())
+        whenever(bufferooCacheDataStore.isExpired())
                 .thenReturn(isExpired)
     }
     //</editor-fold>

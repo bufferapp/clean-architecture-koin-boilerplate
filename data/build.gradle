@@ -7,12 +7,7 @@ dependencies {
     def dataDependencies = rootProject.ext.dataDependencies
     def dataTestDependencies = rootProject.ext.dataTestDependencies
 
-    compile project(':domain')
-
-    compile dataDependencies.javaxAnnotation
-
     implementation dataDependencies.kotlin
-    implementation dataDependencies.javaxInject
     implementation dataDependencies.rxKotlin
 
     testImplementation dataTestDependencies.junit

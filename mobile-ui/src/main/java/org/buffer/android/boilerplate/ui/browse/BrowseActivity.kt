@@ -1,48 +1,41 @@
 package org.buffer.android.boilerplate.ui.browse
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_browse.*
-import org.buffer.android.boilerplate.presentation.browse.BrowseBufferoosViewModel
-import org.buffer.android.boilerplate.presentation.browse.BrowseBufferoosViewModelFactory
-import org.buffer.android.boilerplate.presentation.data.ResourceState
-import org.buffer.android.boilerplate.presentation.data.Resource
-import org.buffer.android.boilerplate.presentation.model.BufferooView
+import kotlinx.android.synthetic.main.activity_browse.progress
+import kotlinx.android.synthetic.main.activity_browse.recycler_browse
+import kotlinx.android.synthetic.main.activity_browse.view_empty
+import kotlinx.android.synthetic.main.activity_browse.view_error
+import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.ui.R
-import org.buffer.android.boilerplate.ui.mapper.BufferooMapper
 import org.buffer.android.boilerplate.ui.widget.empty.EmptyListener
 import org.buffer.android.boilerplate.ui.widget.error.ErrorListener
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.ext.android.bindScope
+import org.koin.android.scope.ext.android.getCurrentScope
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class BrowseActivity: AppCompatActivity() {
 
-    @Inject lateinit var browseAdapter: BrowseAdapter
-    @Inject lateinit var mapper: BufferooMapper
-    @Inject lateinit var viewModelFactory: BrowseBufferoosViewModelFactory
-    private lateinit var browseBufferoosViewModel: BrowseBufferoosViewModel
+    val browseAdapter: BrowseAdapter by inject()
+
+    val browseBufferoosViewModel: BrowseBufferoosViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse)
-        AndroidInjection.inject(this)
-
-        browseBufferoosViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(BrowseBufferoosViewModel::class.java)
+        bindScope(getCurrentScope())
 
         setupBrowseRecycler()
         setupViewListeners()
-    }
 
-    override fun onStart() {
-        super.onStart()
         browseBufferoosViewModel.getBufferoos().observe(this,
-                Observer<Resource<List<BufferooView>>> {
-                    if (it != null) this.handleDataState(it.status, it.data, it.message) })
+                Observer<BrowseState> {
+                    if (it != null) this.handleDataState(it) })
+        browseBufferoosViewModel.fetchBufferoos()
     }
 
     private fun setupBrowseRecycler() {
@@ -50,12 +43,11 @@ class BrowseActivity: AppCompatActivity() {
         recycler_browse.adapter = browseAdapter
     }
 
-    private fun handleDataState(resourceState: ResourceState, data: List<BufferooView>?,
-                                message: String?) {
-        when (resourceState) {
-            ResourceState.LOADING -> setupScreenForLoadingState()
-            ResourceState.SUCCESS -> setupScreenForSuccess(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+    private fun handleDataState(browseState: BrowseState) {
+        when (browseState) {
+            is BrowseState.Loading -> setupScreenForLoadingState()
+            is BrowseState.Success -> setupScreenForSuccess(browseState.data)
+            is BrowseState.Error -> setupScreenForError(browseState.errorMessage)
         }
     }
 
@@ -66,7 +58,7 @@ class BrowseActivity: AppCompatActivity() {
         view_error.visibility = View.GONE
     }
 
-    private fun setupScreenForSuccess(data: List<BufferooView>?) {
+    private fun setupScreenForSuccess(data: List<Bufferoo>?) {
         view_error.visibility = View.GONE
         progress.visibility = View.GONE
         if (data!= null && data.isNotEmpty()) {
@@ -77,8 +69,8 @@ class BrowseActivity: AppCompatActivity() {
         }
     }
 
-    private fun updateListView(bufferoos: List<BufferooView>) {
-        browseAdapter.bufferoos = bufferoos.map { mapper.mapToViewModel(it) }
+    private fun updateListView(bufferoos: List<Bufferoo>) {
+        browseAdapter.bufferoos = bufferoos
         browseAdapter.notifyDataSetChanged()
     }
 

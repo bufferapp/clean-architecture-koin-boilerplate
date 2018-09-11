@@ -1,17 +1,17 @@
 package org.buffer.android.boilerplate.data
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import org.buffer.android.boilerplate.data.mapper.BufferooMapper
-import org.buffer.android.boilerplate.data.model.BufferooEntity
-import org.buffer.android.boilerplate.data.repository.BufferooDataStore
-import org.buffer.android.boilerplate.data.source.BufferooCacheDataStore
+import org.buffer.android.boilerplate.data.browse.Bufferoo
+import org.buffer.android.boilerplate.data.source.BufferooDataStore
 import org.buffer.android.boilerplate.data.source.BufferooDataStoreFactory
-import org.buffer.android.boilerplate.data.source.BufferooRemoteDataStore
 import org.buffer.android.boilerplate.data.test.factory.BufferooFactory
-import org.buffer.android.boilerplate.domain.model.Bufferoo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,20 +20,14 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class BufferooDataRepositoryTest {
 
-    private lateinit var bufferooDataRepository: BufferooDataRepository
+    private val bufferooDataStoreFactory = mock<BufferooDataStoreFactory>()
+    private val bufferooCacheDataStore = mock<BufferooDataStore>()
+    private val bufferooRemoteDataStore = mock<BufferooDataStore>()
 
-    private lateinit var bufferooDataStoreFactory: BufferooDataStoreFactory
-    private lateinit var bufferooMapper: BufferooMapper
-    private lateinit var bufferooCacheDataStore: BufferooCacheDataStore
-    private lateinit var bufferooRemoteDataStore: BufferooRemoteDataStore
+    private val bufferooDataRepository = BufferooDataRepository(bufferooDataStoreFactory)
 
     @Before
     fun setUp() {
-        bufferooDataStoreFactory = mock()
-        bufferooMapper = mock()
-        bufferooCacheDataStore = mock()
-        bufferooRemoteDataStore = mock()
-        bufferooDataRepository = BufferooDataRepository(bufferooDataStoreFactory, bufferooMapper)
         stubBufferooDataStoreFactoryRetrieveCacheDataStore()
         stubBufferooDataStoreFactoryRetrieveRemoteDataStore()
     }
@@ -91,7 +85,7 @@ class BufferooDataRepositoryTest {
         stubBufferooCacheDataStoreIsCached(Single.just(true))
         stubBufferooDataStoreFactoryRetrieveDataStore(bufferooCacheDataStore)
         stubBufferooCacheDataStoreGetBufferoos(Flowable.just(
-                BufferooFactory.makeBufferooEntityList(2)))
+                BufferooFactory.makeBufferooList(2)))
         stubBufferooCacheSaveBufferoos(Completable.complete())
         val testObserver = bufferooDataRepository.getBufferoos().test()
         testObserver.assertComplete()
@@ -103,10 +97,7 @@ class BufferooDataRepositoryTest {
         stubBufferooDataStoreFactoryRetrieveDataStore(bufferooCacheDataStore)
         stubBufferooCacheSaveBufferoos(Completable.complete())
         val bufferoos = BufferooFactory.makeBufferooList(2)
-        val bufferooEntities = BufferooFactory.makeBufferooEntityList(2)
-        bufferoos.forEachIndexed { index, bufferoo ->
-            stubBufferooMapperMapFromEntity(bufferooEntities[index], bufferoo) }
-        stubBufferooCacheDataStoreGetBufferoos(Flowable.just(bufferooEntities))
+        stubBufferooCacheDataStoreGetBufferoos(Flowable.just(bufferoos))
 
         val testObserver = bufferooDataRepository.getBufferoos().test()
         testObserver.assertValue(bufferoos)
@@ -140,13 +131,8 @@ class BufferooDataRepositoryTest {
                 .thenReturn(single)
     }
 
-    private fun stubBufferooCacheDataStoreGetBufferoos(single: Flowable<List<BufferooEntity>>) {
+    private fun stubBufferooCacheDataStoreGetBufferoos(single: Flowable<List<Bufferoo>>) {
         whenever(bufferooCacheDataStore.getBufferoos())
-                .thenReturn(single)
-    }
-
-    private fun stubBufferooRemoteDataStoreGetBufferoos(single: Flowable<List<BufferooEntity>>) {
-        whenever(bufferooRemoteDataStore.getBufferoos())
                 .thenReturn(single)
     }
 
@@ -168,12 +154,6 @@ class BufferooDataRepositoryTest {
     private fun stubBufferooDataStoreFactoryRetrieveDataStore(dataStore: BufferooDataStore) {
         whenever(bufferooDataStoreFactory.retrieveDataStore(any()))
                 .thenReturn(dataStore)
-    }
-
-    private fun stubBufferooMapperMapFromEntity(bufferooEntity: BufferooEntity,
-                                                bufferoo: Bufferoo) {
-        whenever(bufferooMapper.mapFromEntity(bufferooEntity))
-                .thenReturn(bufferoo)
     }
     //</editor-fold>
 

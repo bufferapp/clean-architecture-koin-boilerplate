@@ -3,27 +3,43 @@ package org.buffer.android.boilerplate.ui.browse
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.hasDescendant
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Flowable
-import org.buffer.android.boilerplate.domain.model.Bufferoo
+import org.buffer.android.boilerplate.data.browse.Bufferoo
+import org.buffer.android.boilerplate.data.repository.BufferooRepository
 import org.buffer.android.boilerplate.ui.R
-import org.buffer.android.boilerplate.ui.test.TestApplication
+import org.buffer.android.boilerplate.ui.di.applicationModule
+import org.buffer.android.boilerplate.ui.di.browseModule
 import org.buffer.android.boilerplate.ui.test.util.BufferooFactory
 import org.buffer.android.boilerplate.ui.test.util.RecyclerViewMatcher
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
+import org.koin.standalone.StandAloneContext.loadKoinModules
+import org.koin.standalone.inject
+import org.koin.test.KoinTest
+import org.koin.test.declareMock
 
 @RunWith(AndroidJUnit4::class)
-class BrowseActivityTest {
+class BrowseActivityTest: KoinTest {
+
+    val mockBufferooRepository: BufferooRepository by inject()
 
     @Rule @JvmField
     val activity = ActivityTestRule<BrowseActivity>(BrowseActivity::class.java, false, false)
+
+    @Before
+    fun setUp() {
+        loadKoinModules(applicationModule, browseModule)
+        declareMock<BufferooRepository>()
+    }
 
     @Test
     fun activityLaunches() {
@@ -60,7 +76,7 @@ class BrowseActivityTest {
     }
 
     private fun stubBufferooRepositoryGetBufferoos(single: Flowable<List<Bufferoo>>) {
-        whenever(TestApplication.appComponent().bufferooRepository().getBufferoos())
+        whenever(mockBufferooRepository.getBufferoos())
                 .thenReturn(single)
     }
 

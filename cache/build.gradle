@@ -6,7 +6,6 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
-    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
     defaultConfig {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
@@ -43,18 +42,16 @@ android {
         disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
 
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
     def cacheDependencies = rootProject.ext.cacheDependencies
     def cacheTestDependencies = rootProject.ext.cacheTestDependencies
 
-    compileOnly cacheDependencies.javaxAnnotation
-
     implementation project(':data')
 
     implementation cacheDependencies.kotlin
-    implementation cacheDependencies.javaxInject
     implementation cacheDependencies.rxKotlin
     implementation cacheDependencies.gson
     implementation cacheDependencies.roomRuntime

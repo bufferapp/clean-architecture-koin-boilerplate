@@ -3,7 +3,7 @@ package org.buffer.android.boilerplate.cache.test.factory
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
 import org.buffer.android.boilerplate.cache.test.factory.DataFactory.Factory.randomLong
 import org.buffer.android.boilerplate.cache.test.factory.DataFactory.Factory.randomUuid
-import org.buffer.android.boilerplate.data.model.BufferooEntity
+import org.buffer.android.boilerplate.data.model.Bufferoo
 
 /**
  * Factory class for Bufferoo related instances
@@ -16,12 +16,12 @@ class BufferooFactory {
             return CachedBufferoo(randomLong(), randomUuid(), randomUuid(), randomUuid())
         }
 
-        fun makeBufferooEntity(): BufferooEntity {
-            return BufferooEntity(randomLong(), randomUuid(), randomUuid(), randomUuid())
+        fun makeBufferooEntity(): Bufferoo {
+            return Bufferoo(randomLong(), randomUuid(), randomUuid(), randomUuid())
         }
 
-        fun makeBufferooEntityList(count: Int): List<BufferooEntity> {
-            val bufferooEntities = mutableListOf<BufferooEntity>()
+        fun makeBufferooEntityList(count: Int): List<Bufferoo> {
+            val bufferooEntities = mutableListOf<Bufferoo>()
             repeat(count) {
                 bufferooEntities.add(makeBufferooEntity())
             }

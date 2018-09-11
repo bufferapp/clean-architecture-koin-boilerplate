@@ -1,20 +1,19 @@
 package org.buffer.android.boilerplate.remote.mapper
 
-import org.buffer.android.boilerplate.data.model.BufferooEntity
+import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.remote.model.BufferooModel
-import javax.inject.Inject
 
 /**
- * Map a [BufferooModel] to and from a [BufferooEntity] instance when data is moving between
+ * Map a [BufferooModel] to and from a [Bufferoo] instance when data is moving between
  * this later and the Data layer
  */
-open class BufferooEntityMapper @Inject constructor(): EntityMapper<BufferooModel, BufferooEntity> {
+open class BufferooEntityMapper : EntityMapper<BufferooModel, Bufferoo> {
 
     /**
-     * Map an instance of a [BufferooModel] to a [BufferooEntity] model
+     * Map an instance of a [BufferooModel] to a [Bufferoo] model
      */
-    override fun mapFromRemote(type: BufferooModel): BufferooEntity {
-        return BufferooEntity(type.id, type.name, type.title, type.avatar)
+    override fun mapFromRemote(type: BufferooModel): Bufferoo {
+        return Bufferoo(type.id, type.name, type.title, type.avatar)
     }
 
 }

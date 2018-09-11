@@ -6,19 +6,18 @@ import io.reactivex.Single
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
 import org.buffer.android.boilerplate.cache.mapper.BufferooEntityMapper
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
-import org.buffer.android.boilerplate.data.model.BufferooEntity
-import org.buffer.android.boilerplate.data.repository.BufferooCache
-import javax.inject.Inject
+import org.buffer.android.boilerplate.data.browse.Bufferoo
+import org.buffer.android.boilerplate.data.source.BufferooDataStore
 
 /**
  * Cached implementation for retrieving and saving Bufferoo instances. This class implements the
  * [BufferooCache] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class BufferooCacheImpl @Inject constructor(val bufferoosDatabase: BufferoosDatabase,
-                                            private val entityMapper: BufferooEntityMapper,
-                                            private val preferencesHelper: PreferencesHelper) :
-        BufferooCache {
+class BufferooCacheImpl constructor(val bufferoosDatabase: BufferoosDatabase,
+                                    private val entityMapper: BufferooEntityMapper,
+                                    private val preferencesHelper: PreferencesHelper)
+    : BufferooDataStore {
 
     private val EXPIRATION_TIME = (60 * 10 * 1000).toLong()
 
@@ -40,9 +39,9 @@ class BufferooCacheImpl @Inject constructor(val bufferoosDatabase: BufferoosData
     }
 
     /**
-     * Save the given list of [BufferooEntity] instances to the database.
+     * Save the given list of [Bufferoo] instances to the database.
      */
-    override fun saveBufferoos(bufferoos: List<BufferooEntity>): Completable {
+    override fun saveBufferoos(bufferoos: List<Bufferoo>): Completable {
         return Completable.defer {
             bufferoos.forEach {
                 bufferoosDatabase.cachedBufferooDao().insertBufferoo(
@@ -53,9 +52,9 @@ class BufferooCacheImpl @Inject constructor(val bufferoosDatabase: BufferoosData
     }
 
     /**
-     * Retrieve a list of [BufferooEntity] instances from the database.
+     * Retrieve a list of [Bufferoo] instances from the database.
      */
-    override fun getBufferoos(): Flowable<List<BufferooEntity>> {
+    override fun getBufferoos(): Flowable<List<Bufferoo>> {
         return Flowable.defer {
             Flowable.just(bufferoosDatabase.cachedBufferooDao().getBufferoos())
         }.map {

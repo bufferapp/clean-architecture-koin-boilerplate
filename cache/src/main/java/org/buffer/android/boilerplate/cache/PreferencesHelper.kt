@@ -3,14 +3,10 @@ package org.buffer.android.boilerplate.cache
 import android.content.Context
 import android.content.SharedPreferences
 
-import javax.inject.Inject
-import javax.inject.Singleton
-
 /**
  * General Preferences Helper class, used for storing preference values using the Preference API
  */
-@Singleton
-open class PreferencesHelper @Inject constructor(context: Context) {
+open class PreferencesHelper(context: Context) {
 
     companion object {
         private val PREF_BUFFER_PACKAGE_NAME = "org.buffer.android.boilerplate.preferences"

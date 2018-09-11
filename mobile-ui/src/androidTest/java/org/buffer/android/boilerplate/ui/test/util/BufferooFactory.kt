@@ -1,17 +1,11 @@
 package org.buffer.android.boilerplate.ui.test.util
 
-import org.buffer.android.boilerplate.domain.model.Bufferoo
-import org.buffer.android.boilerplate.presentation.model.BufferooView
+import org.buffer.android.boilerplate.data.browse.Bufferoo
 
 /**
  * Factory class for Bufferoo related instances
  */
 object BufferooFactory {
-
-    fun makeBufferooView(): BufferooView {
-        return BufferooView(DataFactory.randomUuid(), DataFactory.randomUuid(),
-                DataFactory.randomUuid())
-    }
 
     fun makeBufferooList(count: Int): List<Bufferoo> {
         val bufferoos = mutableListOf<Bufferoo>()
