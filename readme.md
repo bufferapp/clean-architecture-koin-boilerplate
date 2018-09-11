@@ -29,7 +29,7 @@ Clean Architecture will not be appropriate for every project, so it is down to y
 * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
 * Android Support Libraries
 * [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
-* [Dagger 2 (2.11)](https://github.com/google/dagger)
+* [Koin](https://github.com/InsertKoinIO/koin)
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](http://square.github.io/retrofit/)
 * [OkHttp](http://square.github.io/okhttp/)
@@ -43,7 +43,7 @@ Clean Architecture will not be appropriate for every project, so it is down to y
 
 * JDK 1.8
 * [Android SDK](https://developer.android.com/studio/index.html)
-* Android O ([API 26](https://developer.android.com/preview/api-overview.html))
+* Android O ([API 28](https://developer.android.com/preview/api-overview.html))
 * Latest Android SDK Tools and build tools.
 
 ## Architecture
@@ -61,47 +61,27 @@ Let's look at each of the architecture layers and the role each one plays :)
 
 ![architecture](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/art/ui.png?raw=true)
 
-### User Interface
-
-This layer makes use of the Android Framework and is used to create all of our UI components to display inside of the [Browse Activity](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/9a1308c42c0c882fc724a0e579ee1ce4d454f961/mobile-ui/src/main/java/org/buffer/android/boilerplate/ui/browse/BrowseActivity.kt). The layer receives its data from the Presentation layer and when retrieved, the received models are mapped using the [Bufferoo Mapper](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/9a1308c42c0c882fc724a0e579ee1ce4d454f961/mobile-ui/src/main/java/org/buffer/android/boilerplate/ui/mapper/BufferooMapper.kt) so that the model can be mapped to this layer's interpretation of the Bufferoo instance, which is the [BufferooViewModel](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/9a1308c42c0c882fc724a0e579ee1ce4d454f961/mobile-ui/src/main/java/org/buffer/android/boilerplate/ui/model/BufferooViewModel.kt). The Activity makes use of the [BrowseBufferoosViewModel](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/browse/BrowseBufferoosViewModel.kt) to retrieve data.
-
 ### Presentation
 
-This layer's responsibility is to handle the presentation of the User Interface, but at the same time knows nothing about the user interface itself. This layer has no dependence on the Android Framework, it is a pure Kotlin module. Each ViewModel class that is created implements the ViewModel class found within the Architecture components library. This ViewModel can then be used by the UI layer to communicate with UseCases and retrieve data. The [BrowseBufferoosViewModel](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/browse/BrowseBufferoosViewModel.kt) returns an instance of a [Resource](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/data/Resource.kt) which contains data that can be used by the UI - this includes the [ResourceState](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/data/ResourceState.kt), data to be used by the UI and a message if required (for error states).
+The presentation Module contains everything that is related to the user facing parts of our application. This layer should use MVVM to handle the orchestration of data from the data source to the UI - this will be made up of an Android Architecture Components View Model class implementation which will use the Use Case classes to retrieve data. The View Model class will then create an instance of an immutable UI state class which will then be passed to the View which has subscribed to the data stream. 
 
-The ViewModels use an instance of a [FlowableUseCase](https://github.com/bufferapp/clean-architecture-components-boilerplate/blob/master/domain/src/main/java/org/buffer/android/boilerplate/domain/interactor/FlowableUseCase.kt) from the Domain layer to retrieve data. Note here that there is no direct name reference to the UseCase that we are using - we do inject an instance of the [GetBufferoos](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/domain/src/main/java/org/buffer/android/boilerplate/domain/interactor/browse/GetBufferoos.kt) UseCase, however.
-
-The ViewModel receives data from the Domain layer in the form of a [Bufferoo](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/model/BufferooView.kt). These instances are mapped to instance of this layers model, which is a BufferooView using the [BufferooMapper](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/presentation/src/main/java/org/buffer/android/boilerplate/presentation/mapper/BufferooMapper.kt).
-
-### Domain
-
-The domain layer responsibility is to simply contain the UseCase instance used to retrieve data from the Data layer and pass it onto the Presentation layer. In our case, we define a [GetBufferoos](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/domain/src/main/java/org/buffer/android/boilerplate/domain/interactor/browse/GetBufferoos.kt) - this use case handles the subscribing and observing of our request for data from the BufferooRepository interface. This UseCase extends the [SingleUseCase](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/domain/src/main/java/org/buffer/android/boilerplate/domain/interactor/ObservableUseCase.kt) base class - therefore we can reference it from outer layers and avoid a direct reference to a specific implementation.
-
-The layer defines the [Bufferoo](https://github.com/bufferapp/android-clean-architecture-boilerplate/tree/master/domain/src/main/java/org/buffer/android/boilerplate/domain/model) class but no mapper. This is because the Domain layer is our central layer, it knows nothing of the layers outside of it so has no need to map data to any other type of model.
-
-The Domain layer defines the [BufferooRepository](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/domain/src/main/java/org/buffer/android/boilerplate/domain/repository/BufferooRepository.kt) interface which provides a set of methods for an external layer to implement as the UseCase classes use the interface when requesting data.
-
-![architecture](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/art/data.png?raw=true)
+This View will then use the model to render it's state. The UI state should be the only state of the View, this way there is only one source of truth for how the display of content is constructed. The UI state should be a sealed class and make use of a Resource State instance (LOADING, SUCCESS, ERROR) so that UI states can easily be composed.
 
 ### Data
 
-The Data layer is our access point to external data layers and is used to fetch data from multiple sources (the cache and network in our case). It contains an implementation of the BufferooRepository, which is the [BufferooDataRepository](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/BufferooDataRepository.kt). To begin with, this class uses the [BufferooDataStoreFactory](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/source/BufferooDataStoreFactory.kt) to decide which data store class will be used when fetching data - this will be either the [BufferooRemoteDataStore](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/source/BufferooRemoteDataStore.kt) or the [BufferooCacheDataStore](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/source/BufferooCacheDataStore.kt) - both of these classes implement the [BufferooDataStore](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/repository/BufferooDataStore.kt) repository so that our DataStore classes are enforced.
+The Data Module is our access point to external data layers and is used to fetch data from multiple sources (the cache and network), it also contains the Use Case classes (domain logic) which are uses to carry out operations on the data (such as creating an update, closing a conversation). The data layer contains the Data Models which are used in this module and modules higher than it (such as the UI module). The Remote and Cache module models will map to this model, past here the model will never change so it makes no sense to perform any more mappings.
 
-Each of these DataStore classes also references a corresponding [BufferooCache](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/repository/BufferooCache.kt) and [BufferooRemote](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/repository/BufferooRemote.kt) interface, which is used when requesting data from an external data source module.
-
-This layers data model is the [BufferooEntity](https://github.com/bufferapp/android-clean-architecture-boilerplate/tree/master/data/src/main/java/org/buffer/android/boilerplate/data/model). Here the [BufferooMapper](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/mapper/BufferooMapper.kt) is used to map data to and from a Bufferoo instance from the domain layer and BufferooEntity instance from this layer as required.
+The Use Case classes will use a repository interface which defines the set of operations which can be performed within the data layer. This interface is the implemented by a Data Repository class which will use a Data Store Factory to retrieve an instance of a Data Store Interface to retrieve data from. This Data Store Interface will be implemented by an external layer and allows us to abstract the source of data from our data layer - allowing us to create a more flexible and decoupled data source
 
 ### Remote
 
-The Remote layer handles all communications with remote sources, in our case it makes a simple API call using a Retrofit interface. The [BufferooRemoteImpl](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/remote/src/main/java/org/buffer/android/boilerplate/remote/BufferooRemoteImpl.kt) class implements the [BufferooRemote](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/data/src/main/java/org/buffer/android/boilerplate/data/repository/BufferooRemote.kt) interface from the Data layer and uses the [BufferooService](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/remote/src/main/java/org/buffer/android/boilerplate/remote/BufferooService.kt) to retrieve data from the API.
-
-The API returns us instances of a [BufferooModel](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/remote/src/main/java/org/buffer/android/boilerplate/remote/model/BufferooModel.kt) and these are mapped to BufferooEntity instance from the Data layer using the [BufferooEntityMapper](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/remote/src/main/java/org/buffer/android/boilerplate/remote/mapper/BufferooEntityMapper.kt) class.
+The Remote module handles all communications with remote sources, in our case it makes simple API calls using a Retrofit interface. This service will be used within a Remote Data store implementation class to retrieve instance of the Remote Model representations - this data store class implements the data store interface from the data layer. The data store class uses a model mapper that will map these Remote models to the model representation found within the Data module.
 
 ### Cache
 
-The Cache layer handles all communication with the local database which is used to cache data. 
+The Cache module handles all communication with the local database which is used to cache data. For this our Database should use the Room architecture component library for the data base, whos data is accessed using DAO classes from said library. 
 
-The data model for this layer is the [CachedBufferoo](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/cache/src/main/java/org/buffer/android/boilerplate/cache/model/CachedBufferoo.kt) and this is mapped  to and from a BufferooEntity instance from the Data layer using the [BufferooEntityMapper](https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/cache/src/main/java/org/buffer/android/boilerplate/cache/mapper/BufferooEntityMapper.kt) class.
+The cache layer will have it's on Cache Model representations which will be retrieved using the DAOs through the Cache Data Store implementation class, which implements the data store interface from the data layer. This data store class will use a model mapper that will map these Cache models to the model representation found within the Data module.
 
 ## Conclusion
 
