@@ -1,7 +1,4 @@
-[![Build Status](https://travis-ci.org/bufferapp/android-clean-architecture-boilerplate.svg?branch=master)](https://travis-ci.org/bufferapp/android-clean-architecture-boilerplate) [![codecov](https://codecov.io/gh/bufferapp/android-clean-architecture-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/bufferapp/android-clean-architecture-boilerplate) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/278fa00f492d48a288ab64188d15fb61)](https://www.codacy.com/app/hitherejoe/android-clean-architecture-boilerplate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bufferapp/android-clean-architecture-boilerplate&amp;utm_campaign=Badge_Grade) 
-
 # Android Clean Architecture Components Boilerplate
-
 
 Note: This is a fork of our original [Clean Architecture Boilerplate](https://github.com/bufferapp/android-clean-architecture-boilerplate), except in this repo we have switched out the MVP approach found in the presentation layer to now use ViewModels from the Android Architecture Components Library and Koin.
 The caching layer now also uses Room.
