@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 @RunWith(JUnit4::class)
 class BufferooMapperTest {
 
-    private val bufferooEntityMapper = mock<BufferooEntityMapper>()
+    private val bufferooEntityMapper = BufferooEntityMapper()
 
     @Test
     fun mapToCachedMapsData() {
