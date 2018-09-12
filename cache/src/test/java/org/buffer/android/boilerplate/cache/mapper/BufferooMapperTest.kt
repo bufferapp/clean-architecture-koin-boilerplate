@@ -1,6 +1,5 @@
 package org.buffer.android.boilerplate.cache.mapper
 
-import com.nhaarman.mockito_kotlin.mock
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
 import org.buffer.android.boilerplate.cache.test.factory.BufferooFactory
 import org.buffer.android.boilerplate.data.browse.Bufferoo
@@ -12,7 +11,7 @@ import kotlin.test.assertEquals
 @RunWith(JUnit4::class)
 class BufferooMapperTest {
 
-    private val bufferooEntityMapper = mock<BufferooEntityMapper>()
+    private val bufferooEntityMapper = BufferooEntityMapper()
 
     @Test
     fun mapToCachedMapsData() {
