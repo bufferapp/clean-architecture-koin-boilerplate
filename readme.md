@@ -1,6 +1,6 @@
 # Android Clean Architecture Components Boilerplate
 
-Note: This is a fork of our original [Clean Architecture Boilerplate](https://github.com/bufferapp/android-clean-architecture-boilerplate), except in this repo we have switched out the MVP approach found in the presentation layer to now use ViewModels from the Android Architecture Components Library and Koin.
+Note: This is a fork of our original [Clean Architecture Boilerplate](https://github.com/bufferapp/android-clean-architecture-boilerplate), except in this repo we have switched out the MVP approach found in the presentation layer(*mobile-ui*) to now use ViewModels from the Android Architecture Components Library and Koin.
 The caching layer now also uses Room.
 
 Welcome 👋 We hope this boilerplate is not only helpful to other developers, but also that it helps to educate in the area of architecture. We created this boilerplate for a few reasons:
@@ -10,7 +10,7 @@ Welcome 👋 We hope this boilerplate is not only helpful to other developers, b
 3. To share some approaches to clean architecture, especially as we've been [talking a lot about it](https://academy.realm.io/posts/converting-an-app-to-use-clean-architecture/)
 4. To use as a starting point in future projects where clean architecture feels appropriate
 
-It is written 100% in Kotlin with both UI and Unit tests - we will also be keeping this up-to-date as libraries change!
+It is written 100% in Kotlin  with both UI and Unit tests - we will also be keeping this up-to-date as libraries change!
 
 ### Disclaimer
 
@@ -39,7 +39,7 @@ Clean Architecture will not be appropriate for every project, so it is down to y
 
 * JDK 1.8
 * [Android SDK](https://developer.android.com/studio/index.html)
-* Android O ([API 28](https://developer.android.com/preview/api-overview.html))
+* Android P ([API 28](https://developer.android.com/preview/api-overview.html))
 * Latest Android SDK Tools and build tools.
 
 ## Architecture
@@ -53,7 +53,7 @@ The sample app when run will show you a simple list of all the Bufferoos (Buffer
 <img src="https://github.com/bufferapp/android-clean-architecture-boilerplate/blob/master/art/device_screenshot.png" alt="Drawing" style="width: 10px;"/>
 </p>
 
-Let's look at each of the architecture layers and the role each one plays :)
+Let's look at each of the architecture layers and the role each one plays 😃
 
 ### Presentation
 
@@ -69,13 +69,13 @@ The Use Case classes will use a repository interface which defines the set of op
 
 ### Remote
 
-The Remote module handles all communications with remote sources, in our case it makes simple API calls using a Retrofit interface. This service will be used within a Remote Data store implementation class to retrieve instance of the Remote Model representations - this data store class implements the data store interface from the data layer. The data store class uses a model mapper that will map these Remote models to the model representation found within the Data module.
+The Remote Module handles all communications with remote sources, in our case it makes simple API calls using a Retrofit interface. This service will be used within a Remote Data store implementation class to retrieve instances of the Remote Model representations - this data store class implements the data store interface from the data layer. The data store class uses a model mapper that will map these Remote models to the model representation found within the Data module.
 
 ### Cache
 
-The Cache module handles all communication with the local database which is used to cache data. For this our Database should use the Room architecture component library for the data base, whos data is accessed using DAO classes from said library. 
+The Cache Module handles all communication with the local database which is used to cache data. For this our Database should use the Room architecture component library for the data base, who's data is accessed using DAO classes from Room.
 
-The cache layer will have it's on Cache Model representations which will be retrieved using the DAOs through the Cache Data Store implementation class, which implements the data store interface from the data layer. This data store class will use a model mapper that will map these Cache models to the model representation found within the Data module.
+The cache layer will have its own Cache Model representations which will be retrieved using the DAOs through the Cache Data Store implementation class, which implements the data store interface from the data layer. This data store class will use a model mapper that will map these Cache models to the model representation found within the Data module.
 
 ## Conclusion
 
