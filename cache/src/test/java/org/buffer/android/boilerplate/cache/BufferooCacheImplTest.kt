@@ -2,7 +2,7 @@ package org.buffer.android.boilerplate.cache
 
 import android.arch.persistence.room.Room
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
-import org.buffer.android.boilerplate.cache.mapper.BufferooEntityMapper
+import org.buffer.android.boilerplate.cache.mapper.mapToCached
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
 import org.buffer.android.boilerplate.cache.test.factory.BufferooFactory
 import org.junit.Test
@@ -18,12 +18,10 @@ class BufferooCacheImplTest {
 
     private var bufferoosDatabase = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application,
             BufferoosDatabase::class.java).allowMainThreadQueries().build()
-    private var entityMapper = BufferooEntityMapper()
     private var preferencesHelper = PreferencesHelper(RuntimeEnvironment.application)
 
 
-    private val databaseHelper = BufferooCacheImpl(bufferoosDatabase,
-            entityMapper, preferencesHelper)
+    private val databaseHelper = BufferooCacheImpl(bufferoosDatabase, preferencesHelper)
 
     @Test
     fun clearTablesCompletes() {
@@ -62,7 +60,7 @@ class BufferooCacheImplTest {
         val bufferooEntities = BufferooFactory.makeBufferooEntityList(2)
         val cachedBufferoos = mutableListOf<CachedBufferoo>()
         bufferooEntities.forEach {
-            cachedBufferoos.add(entityMapper.mapToCached(it))
+            cachedBufferoos.add(it.mapToCached())
         }
         insertBufferoos(cachedBufferoos)
 

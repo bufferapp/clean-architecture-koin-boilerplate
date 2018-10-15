@@ -11,12 +11,10 @@ import kotlin.test.assertEquals
 @RunWith(JUnit4::class)
 class BufferooMapperTest {
 
-    private val bufferooEntityMapper = BufferooEntityMapper()
-
     @Test
     fun mapToCachedMapsData() {
         val bufferooEntity = BufferooFactory.makeBufferooEntity()
-        val cachedBufferoo = bufferooEntityMapper.mapToCached(bufferooEntity)
+        val cachedBufferoo = bufferooEntity.mapToCached()
 
         assertBufferooDataEquality(bufferooEntity, cachedBufferoo)
     }
@@ -24,7 +22,7 @@ class BufferooMapperTest {
     @Test
     fun mapFromCachedMapsData() {
         val cachedBufferoo = BufferooFactory.makeCachedBufferoo()
-        val bufferooEntity = bufferooEntityMapper.mapFromCached(cachedBufferoo)
+        val bufferooEntity = cachedBufferoo.mapFromCached()
 
         assertBufferooDataEquality(bufferooEntity, cachedBufferoo)
     }

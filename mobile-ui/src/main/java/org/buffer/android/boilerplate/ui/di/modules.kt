@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room
 import org.buffer.android.boilerplate.cache.BufferooCacheImpl
 import org.buffer.android.boilerplate.cache.PreferencesHelper
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
-import org.buffer.android.boilerplate.cache.mapper.BufferooEntityMapper
 import org.buffer.android.boilerplate.data.BufferooDataRepository
 import org.buffer.android.boilerplate.data.browse.interactor.GetBufferoos
 import org.buffer.android.boilerplate.data.executor.JobExecutor
@@ -23,25 +22,24 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
-val applicationModule = module(override=true) {
+val applicationModule = module(override = true) {
 
     single { PreferencesHelper(androidContext()) }
-
-    factory { org.buffer.android.boilerplate.remote.mapper.BufferooEntityMapper() }
 
     single { JobExecutor() as ThreadExecutor }
     single { UiThread() as PostExecutionThread }
 
-    single { Room.databaseBuilder(androidContext(),
-            BufferoosDatabase::class.java, "bufferoos.db")
-            .build() }
+    single {
+        Room.databaseBuilder(androidContext(),
+                BufferoosDatabase::class.java, "bufferoos.db")
+                .build()
+    }
     factory { get<BufferoosDatabase>().cachedBufferooDao() }
 
-    factory<BufferooDataStore>("remote") { BufferooRemoteImpl(get(), get()) }
-    factory<BufferooDataStore>("local") { BufferooCacheImpl(get(), get(), get()) }
+    factory<BufferooDataStore>("remote") { BufferooRemoteImpl(get()) }
+    factory<BufferooDataStore>("local") { BufferooCacheImpl(get(), get()) }
     factory { BufferooDataStoreFactory(get("local"), get("remote")) }
 
-    factory { BufferooEntityMapper() }
     factory { BufferooServiceFactory.makeBuffeoorService(BuildConfig.DEBUG) }
 
     factory<BufferooRepository> { BufferooDataRepository(get()) }

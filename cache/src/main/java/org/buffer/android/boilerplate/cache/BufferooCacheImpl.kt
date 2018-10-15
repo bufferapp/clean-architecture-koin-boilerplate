@@ -4,18 +4,18 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
-import org.buffer.android.boilerplate.cache.mapper.BufferooEntityMapper
+import org.buffer.android.boilerplate.cache.mapper.mapFromCached
+import org.buffer.android.boilerplate.cache.mapper.mapToCached
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
 import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.data.source.BufferooDataStore
 
 /**
  * Cached implementation for retrieving and saving Bufferoo instances. This class implements the
- * [BufferooCache] from the Data layer as it is that layers responsibility for defining the
+ * [BufferooDataStore] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
 class BufferooCacheImpl constructor(val bufferoosDatabase: BufferoosDatabase,
-                                    private val entityMapper: BufferooEntityMapper,
                                     private val preferencesHelper: PreferencesHelper)
     : BufferooDataStore {
 
@@ -45,7 +45,7 @@ class BufferooCacheImpl constructor(val bufferoosDatabase: BufferoosDatabase,
         return Completable.defer {
             bufferoos.forEach {
                 bufferoosDatabase.cachedBufferooDao().insertBufferoo(
-                        entityMapper.mapToCached(it))
+                        it.mapToCached())
             }
             Completable.complete()
         }
@@ -58,7 +58,7 @@ class BufferooCacheImpl constructor(val bufferoosDatabase: BufferoosDatabase,
         return Flowable.defer {
             Flowable.just(bufferoosDatabase.cachedBufferooDao().getBufferoos())
         }.map {
-            it.map { entityMapper.mapFromCached(it) }
+            it.map { it.mapFromCached() }
         }
     }
 

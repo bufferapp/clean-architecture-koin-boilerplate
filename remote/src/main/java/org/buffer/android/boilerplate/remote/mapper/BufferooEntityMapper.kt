@@ -6,14 +6,9 @@ import org.buffer.android.boilerplate.remote.model.BufferooModel
 /**
  * Map a [BufferooModel] to and from a [Bufferoo] instance when data is moving between
  * this later and the Data layer
+ *
+ * Map an instance of a [BufferooModel] to a [Bufferoo] model
  */
-open class BufferooEntityMapper : EntityMapper<BufferooModel, Bufferoo> {
-
-    /**
-     * Map an instance of a [BufferooModel] to a [Bufferoo] model
-     */
-    override fun mapFromRemote(type: BufferooModel): Bufferoo {
-        return Bufferoo(type.id, type.name, type.title, type.avatar)
-    }
-
+fun BufferooModel.mapFromRemote(): Bufferoo {
+    return Bufferoo(this.id, this.name, this.title, this.avatar)
 }

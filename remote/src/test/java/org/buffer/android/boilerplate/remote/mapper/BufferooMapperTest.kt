@@ -9,12 +9,10 @@ import kotlin.test.assertEquals
 @RunWith(JUnit4::class)
 class BufferooMapperTest {
 
-    private val bufferooEntityMapper = BufferooEntityMapper()
-
     @Test
     fun mapFromRemoteMapsData() {
         val bufferooModel = BufferooFactory.makeBufferooModel()
-        val bufferooEntity = bufferooEntityMapper.mapFromRemote(bufferooModel)
+        val bufferooEntity = bufferooModel.mapFromRemote()
 
         assertEquals(bufferooModel.name, bufferooEntity.name)
         assertEquals(bufferooModel.title, bufferooEntity.title)

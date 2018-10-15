@@ -5,15 +5,14 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.data.source.BufferooDataStore
-import org.buffer.android.boilerplate.remote.mapper.BufferooEntityMapper
+import org.buffer.android.boilerplate.remote.mapper.mapFromRemote
 
 /**
  * Remote implementation for retrieving Bufferoo instances. This class implements the
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class BufferooRemoteImpl constructor(private val bufferooService: BufferooService,
-                                     private val entityMapper: BufferooEntityMapper)
+class BufferooRemoteImpl constructor(private val bufferooService: BufferooService)
     :BufferooDataStore {
 
     /**
@@ -24,7 +23,7 @@ class BufferooRemoteImpl constructor(private val bufferooService: BufferooServic
                 .map { it.team }
                 .map {
                     val entities = mutableListOf<Bufferoo>()
-                    it.forEach { entities.add(entityMapper.mapFromRemote(it)) }
+                    it.forEach { entities.add(it.mapFromRemote()) }
                     entities
                 }
     }

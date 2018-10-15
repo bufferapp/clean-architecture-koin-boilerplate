@@ -7,21 +7,17 @@ import org.buffer.android.boilerplate.data.browse.Bufferoo
  * Map a [CachedBufferoo] instance to and from a [Bufferoo] instance when data is moving between
  * this later and the Data layer
  */
-open class BufferooEntityMapper :
-        EntityMapper<CachedBufferoo, Bufferoo> {
 
-    /**
-     * Map a [Bufferoo] instance to a [CachedBufferoo] instance
-     */
-    override fun mapToCached(type: Bufferoo): CachedBufferoo {
-        return CachedBufferoo(type.id, type.name, type.title, type.avatar)
-    }
+/**
+ * Map a [Bufferoo] instance to a [CachedBufferoo] instance
+ */
+fun Bufferoo.mapToCached(): CachedBufferoo {
+    return CachedBufferoo(this.id, this.name, this.title, this.avatar)
+}
 
-    /**
-     * Map a [CachedBufferoo] instance to a [Bufferoo] instance
-     */
-    override fun mapFromCached(type: CachedBufferoo): Bufferoo {
-        return Bufferoo(type.id, type.name, type.title, type.avatar)
-    }
-
+/**
+ * Map a [CachedBufferoo] instance to a [Bufferoo] instance
+ */
+fun CachedBufferoo.mapFromCached(): Bufferoo {
+    return Bufferoo(this.id, this.name, this.title, this.avatar)
 }
