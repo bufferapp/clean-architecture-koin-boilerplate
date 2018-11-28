@@ -5,14 +5,14 @@ allprojects {
 }
 
 ext {
-    //Android
+    // Android
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 28
     androidCompileSdkVersion = 28
 
     def kotlinVersion = rootProject.ext.kotlin_version
 
-    //Libraries
+    // Libraries
     supportLibraryVersion = '28.0.0'
     recyclerViewVersion = "${supportLibraryVersion}"
     koinVersion = '1.0.2'
@@ -27,24 +27,17 @@ ext {
     timberVersion = '4.7.1'
     glideVersion = '4.8.0'
 
-    //Testing
-    robolectricVersion = '3.4.2'
+    // Testing
+    robolectricVersion = '4.0.2'
     jUnitVersion = '4.12'
-    assertJVersion = '3.8.0'
-    mockitoVersion = '1.9.5'
-    dexmakerVersion = '1.0'
-    espressoVersion = '3.0.0'
-    testingSupportLibVersion = '0.1'
-    mockitoKotlinVersion = '1.6.0'
-    mockitoAndroidVersion = '2.21.0'
-    androidSupportRunnerVersion = '1.0.0'
-    androidSupportRulesVersion = '1.0.0'
-    dexmakerMockitoversion = '2.2.0'
-    runnerVersion = '0.5'
+    assertJVersion = '3.11.1'
+    espressoVersion = '3.0.2'
+    mockitoKotlinVersion = '2.0.0'
+    mockitoAndroidVersion = '2.23.4'
+    runnerVersion = '1.0.2'
 
     dataDependencies = [
             kotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
-            kotlinReflect     : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
             okHttp            : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
             okHttpLogger      : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
             gson              : "com.google.code.gson:gson:${gsonVersion}",
@@ -58,16 +51,15 @@ ext {
     ]
 
     dataTestDependencies = [
-            junit      : "junit:junit:${jUnitVersion}",
-            kotlinJUnit: "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
-            assertj    : "org.assertj:assertj-core:${assertJVersion}",
-            mockito    : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
-            robolectric: "org.robolectric:robolectric:${robolectricVersion}"
+            junit        : "junit:junit:${jUnitVersion}",
+            kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
+            assertj      : "org.assertj:assertj-core:${assertJVersion}",
+            mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            robolectric  : "org.robolectric:robolectric:${robolectricVersion}"
     ]
 
     cacheDependencies = [
             kotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
-            kotlinReflect     : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
             gson              : "com.google.code.gson:gson:${gsonVersion}",
             rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxKotlin          : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
@@ -81,17 +73,14 @@ ext {
             junit        : "junit:junit:${jUnitVersion}",
             kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
             assertj      : "org.assertj:assertj-core:${assertJVersion}",
-            mockito      : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             robolectric  : "org.robolectric:robolectric:${robolectricVersion}",
             roomTesting  : "android.arch.persistence.room:testing:${roomVersion}",
-            archTesting  : "android.arch.core:core-testing:${roomVersion}",
-            supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            supportRules : "com.android.support.test:rules:${androidSupportRulesVersion}"
+            archTesting  : "android.arch.core:core-testing:${roomVersion}"
     ]
 
     remoteDependencies = [
             kotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
-            kotlinReflect     : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
             gson              : "com.google.code.gson:gson:${gsonVersion}",
             rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxKotlin          : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
@@ -107,14 +96,11 @@ ext {
             junit        : "junit:junit:${jUnitVersion}",
             kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
             assertj      : "org.assertj:assertj-core:${assertJVersion}",
-            mockito      : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
-            supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            supportRules : "com.android.support.test:rules:${androidSupportRulesVersion}"
+            mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}"
     ]
 
     mobileUiDependencies = [
             kotlin             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
-            kotlinReflect      : "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}",
             koin               : "org.koin:koin-android:${koinVersion}",
             koinCompile        : "org.koin:koin-android-scope:${koinVersion}",
             koinArch           : "org.koin:koin-android-viewmodel:${koinVersion}",
@@ -140,9 +126,7 @@ ext {
             kotlinJUnit    : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
             koinTest       : "org.koin:koin-test:${koinVersion}",
             assertj        : "org.assertj:assertj-core:${assertJVersion}",
-            mockito        : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
-            supportRunner  : "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            supportRules   : "com.android.support.test:rules:${androidSupportRulesVersion}",
+            mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             mockitoAndroid : "org.mockito:mockito-android:${mockitoAndroidVersion}",
             espressoCore   : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
             espressoIntents: "com.android.support.test.espresso:espresso-intents:${espressoVersion}",

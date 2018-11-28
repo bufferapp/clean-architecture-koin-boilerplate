@@ -48,7 +48,6 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.kotlin
-    implementation mobileUiDependencies.kotlinReflect
     implementation mobileUiDependencies.rxJava
     implementation mobileUiDependencies.rxKotlin
     implementation mobileUiDependencies.androidAnnotations
@@ -74,11 +73,11 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     })
-    testImplementation mobileUiTestDependencies.mockito
+    testImplementation mobileUiTestDependencies.mockitoKotlin
 
     // Instrumentation test dependencies
     androidTestImplementation mobileUiTestDependencies.junit
-    androidTestImplementation (mobileUiTestDependencies.mockito, {
+    androidTestImplementation (mobileUiTestDependencies.mockitoKotlin, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     })

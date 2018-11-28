@@ -56,7 +56,6 @@ dependencies {
     implementation project(':data')
 
     implementation cacheDependencies.kotlin
-    implementation cacheDependencies.kotlinReflect
     implementation cacheDependencies.rxJava
     implementation cacheDependencies.rxKotlin
     implementation cacheDependencies.gson
@@ -65,7 +64,7 @@ dependencies {
 
     testImplementation cacheTestDependencies.junit
     testImplementation cacheTestDependencies.kotlinJUnit
-    testImplementation cacheTestDependencies.mockito
+    testImplementation cacheTestDependencies.mockitoKotlin
     testImplementation cacheTestDependencies.assertj
     testImplementation cacheTestDependencies.robolectric
     testImplementation cacheTestDependencies.archTesting

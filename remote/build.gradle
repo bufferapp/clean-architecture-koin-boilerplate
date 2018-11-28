@@ -8,7 +8,6 @@ dependencies {
     def remoteTestDependencies = rootProject.ext.remoteTestDependencies
 
     implementation remoteDependencies.kotlin
-    implementation remoteDependencies.kotlinReflect
     implementation remoteDependencies.rxJava
     implementation remoteDependencies.rxKotlin
     implementation remoteDependencies.gson
@@ -20,7 +19,7 @@ dependencies {
 
     testImplementation remoteTestDependencies.junit
     testImplementation remoteTestDependencies.kotlinJUnit
-    testImplementation remoteTestDependencies.mockito
+    testImplementation remoteTestDependencies.mockitoKotlin
     testImplementation remoteTestDependencies.assertj
 
     compile project(':data')
