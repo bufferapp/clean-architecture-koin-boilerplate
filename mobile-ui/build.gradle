@@ -48,6 +48,8 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.kotlin
+    implementation mobileUiDependencies.kotlinReflect
+    implementation mobileUiDependencies.rxJava
     implementation mobileUiDependencies.rxKotlin
     implementation mobileUiDependencies.androidAnnotations
     implementation mobileUiDependencies.appCompatV7
@@ -57,8 +59,8 @@ dependencies {
     implementation mobileUiDependencies.rxAndroid
     implementation mobileUiDependencies.glide
     implementation mobileUiDependencies.koin
+    implementation mobileUiDependencies.koinCompile
     implementation mobileUiDependencies.koinArch
-    implementation "org.koin:koin-android-scope:1.0.0-RC-1"
     kapt "android.arch.lifecycle:compiler:1.1.1"
     // alternately - if using Java8, use the following instead of compiler
     implementation "android.arch.lifecycle:common-java8:1.1.1"
@@ -68,7 +70,7 @@ dependencies {
 
     testImplementation mobileUiTestDependencies.kotlinJUnit
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
-    androidTestImplementation ('org.koin:koin-test:1.0.0-RC-1', {
+    androidTestImplementation (mobileUiTestDependencies.koinTest, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     })
