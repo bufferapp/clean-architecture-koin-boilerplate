@@ -18,11 +18,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - This change log file.
+- [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) to check for library versions updates.
 
 ### Changed
 - Git ignore file was updated with default template.
 - Kotlin Gradle plugin version was updated.
 - Android Gradle plugin version was updated and Android build tools version, too.
+- Java compatibility upgraded to Java 1.8.
+
+### Removed
+- Unused definitions for a presentation layer that does not exist anymore.
 
 ## 0.0.0 - 2018-11-28
 ### Added

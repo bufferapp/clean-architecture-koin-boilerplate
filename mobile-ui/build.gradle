@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -58,11 +59,11 @@ dependencies {
     implementation mobileUiDependencies.koin
     implementation mobileUiDependencies.koinArch
     implementation "org.koin:koin-android-scope:1.0.0-RC-1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1" // use kapt for Kotlin
+    kapt "android.arch.lifecycle:compiler:1.1.1"
     // alternately - if using Java8, use the following instead of compiler
     implementation "android.arch.lifecycle:common-java8:1.1.1"
 
-    implementation presentationDependencies.archExtensions
+    implementation mobileUiDependencies.archExtensions
     implementation "android.arch.persistence.room:rxjava2:1.1.1"
 
     testImplementation mobileUiTestDependencies.kotlinJUnit
