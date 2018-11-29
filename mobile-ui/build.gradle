@@ -36,7 +36,6 @@ android {
         abortOnError false
         ignoreWarnings true
     }
-
 }
 
 dependencies {
@@ -48,27 +47,24 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.kotlin
-    implementation mobileUiDependencies.rxJava
-    implementation mobileUiDependencies.rxKotlin
+    implementation mobileUiDependencies.koin
+    implementation mobileUiDependencies.koinCompile
+    implementation mobileUiDependencies.koinArch
     implementation mobileUiDependencies.androidAnnotations
     implementation mobileUiDependencies.appCompatV7
     implementation mobileUiDependencies.supportRecyclerView
     implementation mobileUiDependencies.supportDesign
-    implementation mobileUiDependencies.timber
+    implementation mobileUiDependencies.lifecycleExtensions
+    implementation mobileUiDependencies.lifecycleCommonJava8
+    implementation mobileUiDependencies.roomRuntime
+    implementation mobileUiDependencies.rxJava
     implementation mobileUiDependencies.rxAndroid
+    implementation mobileUiDependencies.rxKotlin
     implementation mobileUiDependencies.glide
-    implementation mobileUiDependencies.koin
-    implementation mobileUiDependencies.koinCompile
-    implementation mobileUiDependencies.koinArch
-    kapt "android.arch.lifecycle:compiler:1.1.1"
-    // alternately - if using Java8, use the following instead of compiler
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-
-    implementation mobileUiDependencies.archExtensions
-    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+    implementation mobileUiDependencies.timber
 
     testImplementation mobileUiTestDependencies.kotlinJUnit
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    androidTestImplementation mobileUiTestDependencies.lifecycleTest
     androidTestImplementation (mobileUiTestDependencies.koinTest, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'

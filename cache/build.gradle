@@ -56,17 +56,17 @@ dependencies {
     implementation project(':data')
 
     implementation cacheDependencies.kotlin
-    implementation cacheDependencies.rxJava
-    implementation cacheDependencies.rxKotlin
-    implementation cacheDependencies.gson
     implementation cacheDependencies.roomRuntime
     kapt cacheDependencies.roomCompiler
+    implementation cacheDependencies.roomRxJava
+    implementation cacheDependencies.rxJava
+    implementation cacheDependencies.rxKotlin
 
     testImplementation cacheTestDependencies.junit
     testImplementation cacheTestDependencies.kotlinJUnit
-    testImplementation cacheTestDependencies.mockitoKotlin
     testImplementation cacheTestDependencies.assertj
+    testImplementation cacheTestDependencies.mockitoKotlin
     testImplementation cacheTestDependencies.robolectric
-    testImplementation cacheTestDependencies.archTesting
     testImplementation cacheTestDependencies.roomTesting
+    testImplementation cacheTestDependencies.archTesting
 }

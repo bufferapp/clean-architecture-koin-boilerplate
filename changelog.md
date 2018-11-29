@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - Unused definitions for a presentation layer that does not exist anymore.
+- Unused dependencies were cleaned.
 
 ## 0.0.0 - 2018-11-28
 ### Added

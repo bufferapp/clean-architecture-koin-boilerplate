@@ -8,14 +8,14 @@ dependencies {
     def remoteTestDependencies = rootProject.ext.remoteTestDependencies
 
     implementation remoteDependencies.kotlin
-    implementation remoteDependencies.rxJava
-    implementation remoteDependencies.rxKotlin
-    implementation remoteDependencies.gson
-    implementation remoteDependencies.okHttp
-    implementation remoteDependencies.okHttpLogger
     implementation remoteDependencies.retrofit
     implementation remoteDependencies.retrofitConverter
     implementation remoteDependencies.retrofitAdapter
+    implementation remoteDependencies.okHttp
+    implementation remoteDependencies.okHttpLogger
+    implementation remoteDependencies.gson
+    implementation remoteDependencies.rxJava
+    implementation remoteDependencies.rxKotlin
 
     testImplementation remoteTestDependencies.junit
     testImplementation remoteTestDependencies.kotlinJUnit
