@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Android Gradle plugin version was updated and Android build tools version, too.
 - Java compatibility upgraded to Java 1.8.
 - Versions of dependencies were updated.
+- Project was migrated from support library to AndroidX.
 
 ### Removed
 - Unused definitions for a presentation layer that does not exist anymore.

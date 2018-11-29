@@ -50,10 +50,10 @@ dependencies {
     implementation mobileUiDependencies.koin
     implementation mobileUiDependencies.koinCompile
     implementation mobileUiDependencies.koinArch
-    implementation mobileUiDependencies.androidAnnotations
-    implementation mobileUiDependencies.appCompatV7
-    implementation mobileUiDependencies.supportRecyclerView
-    implementation mobileUiDependencies.supportDesign
+    implementation mobileUiDependencies.androidAnnotation
+    implementation mobileUiDependencies.appcompat
+    implementation mobileUiDependencies.recyclerView
+    implementation mobileUiDependencies.materialDesign
     implementation mobileUiDependencies.lifecycleExtensions
     implementation mobileUiDependencies.lifecycleCommonJava8
     implementation mobileUiDependencies.roomRuntime
@@ -78,6 +78,7 @@ dependencies {
         exclude group: 'org.mockito'
     })
     androidTestImplementation mobileUiTestDependencies.mockitoAndroid
+    androidTestImplementation mobileUiTestDependencies.testCore
     androidTestImplementation (mobileUiTestDependencies.espressoCore) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }

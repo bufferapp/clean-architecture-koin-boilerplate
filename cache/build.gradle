@@ -68,5 +68,4 @@ dependencies {
     testImplementation cacheTestDependencies.mockitoKotlin
     testImplementation cacheTestDependencies.robolectric
     testImplementation cacheTestDependencies.roomTesting
-    testImplementation cacheTestDependencies.archTesting
 }

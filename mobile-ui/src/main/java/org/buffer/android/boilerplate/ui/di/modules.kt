@@ -1,6 +1,6 @@
 package org.buffer.android.boilerplate.ui.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import org.buffer.android.boilerplate.cache.BufferooCacheImpl
 import org.buffer.android.boilerplate.cache.PreferencesHelper
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
@@ -20,7 +20,7 @@ import org.buffer.android.boilerplate.ui.UiThread
 import org.buffer.android.boilerplate.ui.browse.BrowseAdapter
 import org.buffer.android.boilerplate.ui.browse.BrowseBufferoosViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.ext.koin.viewModel
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val applicationModule = module(override=true) {

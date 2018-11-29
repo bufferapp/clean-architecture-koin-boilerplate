@@ -1,6 +1,6 @@
 package org.buffer.android.boilerplate.cache
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
 import org.buffer.android.boilerplate.cache.mapper.BufferooEntityMapper
 import org.buffer.android.boilerplate.cache.model.CachedBufferoo
