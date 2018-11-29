@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - This change log file.
-- [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) to check for library versions updates.
+- [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) to check for dependency updates.
 
 ### Changed
 - Git ignore file was updated with default template.
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Java compatibility upgraded to Java 1.8.
 - Versions of dependencies were updated.
 - Project was migrated from support library to AndroidX.
+- Project tests were migrated to AndroidX.
 
 ### Removed
 - Unused definitions for a presentation layer that does not exist anymore.

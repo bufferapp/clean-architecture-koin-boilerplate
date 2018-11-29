@@ -1,7 +1,6 @@
 package org.buffer.android.boilerplate.ui.browse
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.runner.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -12,7 +11,6 @@ import org.buffer.android.boilerplate.ui.test.util.BufferooFactory
 import org.buffer.android.boilerplate.ui.test.util.DataFactory
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 class BrowseBufferoosViewModelTest {
 

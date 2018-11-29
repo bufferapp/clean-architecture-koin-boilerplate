@@ -1,16 +1,16 @@
 package org.buffer.android.boilerplate.cache.dao
 
 import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.buffer.android.boilerplate.cache.db.BufferoosDatabase
 import org.buffer.android.boilerplate.cache.test.factory.BufferooFactory
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
-@RunWith(RobolectricTestRunner::class)
+@RunWith(AndroidJUnit4::class)
 open class CachedBufferooDaoTest {
 
     private lateinit var bufferoosDatabase: BufferoosDatabase
@@ -18,7 +18,7 @@ open class CachedBufferooDaoTest {
     @Before
     fun initDb() {
         bufferoosDatabase = Room.inMemoryDatabaseBuilder(
-                RuntimeEnvironment.application.baseContext,
+                ApplicationProvider.getApplicationContext(),
                 BufferoosDatabase::class.java)
                 .allowMainThreadQueries()
                 .build()

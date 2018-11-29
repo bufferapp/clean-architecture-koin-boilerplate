@@ -30,6 +30,8 @@ ext {
     glideVersion = '4.8.0'
 
     // Testing
+    testCoreVersion = '1.0.0'
+    androidJUnitVersion = '1.0.0'
     robolectricVersion = '4.0.2'
     jUnitVersion = '4.12'
     assertJVersion = '3.11.1'
@@ -37,7 +39,6 @@ ext {
     mockitoKotlinVersion = '2.0.0'
     mockitoAndroidVersion = '2.23.4'
     runnerVersion = '1.1.0'
-    testCoreVersion = '1.0.0'
 
     dataDependencies = [
             kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
@@ -67,6 +68,9 @@ ext {
             kotlinJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
             assertj      : "org.assertj:assertj-core:${assertJVersion}",
             mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            testCore     : "androidx.test:core:${testCoreVersion}",
+            androidRunner: "androidx.test:runner:${runnerVersion}",
+            androidJUnit : "androidx.test.ext:junit:${androidJUnitVersion}",
             robolectric  : "org.robolectric:robolectric:${robolectricVersion}",
             roomTesting  : "androidx.room:room-testing:${roomVersion}"
     ]
@@ -116,7 +120,7 @@ ext {
             mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             junit          : "junit:junit:${jUnitVersion}",
             mockitoAndroid : "org.mockito:mockito-android:${mockitoAndroidVersion}",
-            testCore       : "androidx.test:core:1.0.0",
+            androidJUnit   : "androidx.test.ext:junit:${androidJUnitVersion}",
             androidRunner  : "androidx.test:runner:${runnerVersion}",
             androidRules   : "androidx.test:rules:${runnerVersion}",
             espressoCore   : "androidx.test.espresso:espresso-core:${espressoVersion}",

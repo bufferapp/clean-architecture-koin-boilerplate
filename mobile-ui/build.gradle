@@ -78,7 +78,7 @@ dependencies {
         exclude group: 'org.mockito'
     })
     androidTestImplementation mobileUiTestDependencies.mockitoAndroid
-    androidTestImplementation mobileUiTestDependencies.testCore
+    androidTestImplementation mobileUiTestDependencies.androidJUnit
     androidTestImplementation (mobileUiTestDependencies.espressoCore) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
