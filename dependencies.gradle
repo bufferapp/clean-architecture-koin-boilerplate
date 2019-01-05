@@ -17,7 +17,7 @@ ext {
     appcompatVersion = '1.0.2'
     recyclerViewVersion = '1.0.0'
     materialDesignVersion = '1.0.0'
-    koinVersion = '1.0.2'
+    koinVersion = '1.0.1'
     rxJavaVersion = '2.2.4'
     rxAndroidVersion = '2.1.0'
     rxKotlinVersion = '2.3.0'
@@ -37,7 +37,7 @@ ext {
     assertJVersion = '3.11.1'
     espressoVersion = '3.1.0'
     mockitoKotlinVersion = '2.0.0'
-    mockitoAndroidVersion = '2.23.4'
+    mockitoAndroidVersion = '2.22.0'
     runnerVersion = '1.1.0'
 
     dataDependencies = [
