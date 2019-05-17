@@ -47,6 +47,7 @@ class BufferooCacheImpl constructor(val bufferoosDatabase: BufferoosDatabase,
                 bufferoosDatabase.cachedBufferooDao().insertBufferoo(
                         entityMapper.mapToCached(it))
             }
+            this.setLastCacheTime(System.currentTimeMillis())
             Completable.complete()
         }
     }
