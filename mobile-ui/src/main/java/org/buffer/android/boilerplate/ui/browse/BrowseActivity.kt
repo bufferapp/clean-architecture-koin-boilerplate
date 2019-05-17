@@ -14,13 +14,9 @@ import org.buffer.android.boilerplate.ui.R
 import org.buffer.android.boilerplate.ui.widget.empty.EmptyListener
 import org.buffer.android.boilerplate.ui.widget.error.ErrorListener
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.getOrCreateScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BrowseActivity: AppCompatActivity() {
-
-    private val SCOPE_NAME = (this::class.java.canonicalName ?: "BrowseActivity") + hashCode()
 
     val browseAdapter: BrowseAdapter by inject()
 
@@ -29,7 +25,6 @@ class BrowseActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse)
-        bindScope(getOrCreateScope(SCOPE_NAME))
 
         setupBrowseRecycler()
         setupViewListeners()

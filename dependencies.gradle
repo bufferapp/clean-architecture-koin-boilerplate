@@ -17,7 +17,7 @@ ext {
     appcompatVersion = '1.0.2'
     recyclerViewVersion = '1.0.0'
     materialDesignVersion = '1.0.0'
-    koinVersion = '1.0.1'
+    koinVersion = '2.0.0-GA4'
     rxJavaVersion = '2.2.8'
     rxAndroidVersion = '2.1.1'
     rxKotlinVersion = '2.3.0'
@@ -37,6 +37,7 @@ ext {
     assertJVersion = '3.12.2'
     espressoVersion = '3.1.1'
     mockitoKotlinVersion = '2.1.0'
+    mockitoInlineVersion = '2.27.0'
     mockitoAndroidVersion = '2.27.0'
     runnerVersion = '1.1.1'
 
@@ -117,8 +118,9 @@ ext {
             kotlinJUnit    : "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}",
             lifecycleTest  : "androidx.arch.core:core-testing:${lifecycleExtensionsVersion}",
             koinTest       : "org.koin:koin-test:${koinVersion}",
-            mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             junit          : "junit:junit:${jUnitVersion}",
+            mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoInline  : "org.mockito:mockito-inline:${mockitoInlineVersion}",
             mockitoAndroid : "org.mockito:mockito-android:${mockitoAndroidVersion}",
             androidJUnit   : "androidx.test.ext:junit:${androidJUnitVersion}",
             androidRunner  : "androidx.test:runner:${runnerVersion}",

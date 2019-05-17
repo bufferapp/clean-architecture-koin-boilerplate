@@ -20,10 +20,11 @@ import org.buffer.android.boilerplate.ui.UiThread
 import org.buffer.android.boilerplate.ui.browse.BrowseAdapter
 import org.buffer.android.boilerplate.ui.browse.BrowseBufferoosViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
-val applicationModule = module(override=true) {
+val applicationModule = module(override = true) {
 
     single { PreferencesHelper(androidContext()) }
 
@@ -37,9 +38,9 @@ val applicationModule = module(override=true) {
             .build() }
     factory { get<BufferoosDatabase>().cachedBufferooDao() }
 
-    factory<BufferooDataStore>("remote") { BufferooRemoteImpl(get(), get()) }
-    factory<BufferooDataStore>("local") { BufferooCacheImpl(get(), get(), get()) }
-    factory { BufferooDataStoreFactory(get("local"), get("remote")) }
+    factory<BufferooDataStore>(named("remote")) { BufferooRemoteImpl(get(), get()) }
+    factory<BufferooDataStore>(named("local")) { BufferooCacheImpl(get(), get(), get()) }
+    factory { BufferooDataStoreFactory(get(named("local")), get(named("remote"))) }
 
     factory { BufferooEntityMapper() }
     factory { BufferooServiceFactory.makeBuffeoorService(BuildConfig.DEBUG) }
@@ -47,7 +48,7 @@ val applicationModule = module(override=true) {
     factory<BufferooRepository> { BufferooDataRepository(get()) }
 }
 
-val browseModule = module("Browse", override = true) {
+val browseModule = module(override = true) {
     factory { BrowseAdapter() }
     factory { GetBufferoos(get(), get(), get()) }
     viewModel { BrowseBufferoosViewModel(get()) }

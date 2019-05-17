@@ -64,15 +64,16 @@ dependencies {
     implementation mobileUiDependencies.timber
 
     testImplementation mobileUiTestDependencies.kotlinJUnit
+    testImplementation mobileUiTestDependencies.mockitoKotlin
+    testImplementation mobileUiTestDependencies.mockitoInline
+
+    // Instrumentation test dependencies
+    androidTestImplementation mobileUiTestDependencies.junit
     androidTestImplementation mobileUiTestDependencies.lifecycleTest
     androidTestImplementation (mobileUiTestDependencies.koinTest, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     })
-    testImplementation mobileUiTestDependencies.mockitoKotlin
-
-    // Instrumentation test dependencies
-    androidTestImplementation mobileUiTestDependencies.junit
     androidTestImplementation (mobileUiTestDependencies.mockitoKotlin, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
