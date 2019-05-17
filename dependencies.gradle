@@ -13,32 +13,32 @@ ext {
     def kotlinVersion = rootProject.ext.kotlin_version
 
     // Libraries
-    annotationVersion = '1.0.0'
+    annotationVersion = '1.0.2'
     appcompatVersion = '1.0.2'
     recyclerViewVersion = '1.0.0'
     materialDesignVersion = '1.0.0'
     koinVersion = '1.0.1'
-    rxJavaVersion = '2.2.4'
-    rxAndroidVersion = '2.1.0'
+    rxJavaVersion = '2.2.8'
+    rxAndroidVersion = '2.1.1'
     rxKotlinVersion = '2.3.0'
     gsonVersion = '2.8.5'
-    okHttpVersion = '3.12.0'
+    okHttpVersion = '3.14.1'
     retrofitVersion = '2.5.0'
     lifecycleExtensionsVersion = '2.0.0'
     roomVersion = '2.0.0'
     timberVersion = '4.7.1'
-    glideVersion = '4.8.0'
+    glideVersion = '4.9.0'
 
     // Testing
-    testCoreVersion = '1.0.0'
-    androidJUnitVersion = '1.0.0'
-    robolectricVersion = '4.0.2'
+    testCoreVersion = '1.1.0'
+    androidJUnitVersion = '1.1.0'
+    robolectricVersion = '4.2.1'
     jUnitVersion = '4.12'
-    assertJVersion = '3.11.1'
-    espressoVersion = '3.1.0'
-    mockitoKotlinVersion = '2.0.0'
-    mockitoAndroidVersion = '2.22.0'
-    runnerVersion = '1.1.0'
+    assertJVersion = '3.12.2'
+    espressoVersion = '3.1.1'
+    mockitoKotlinVersion = '2.1.0'
+    mockitoAndroidVersion = '2.27.0'
+    runnerVersion = '1.1.1'
 
     dataDependencies = [
             kotlin   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
