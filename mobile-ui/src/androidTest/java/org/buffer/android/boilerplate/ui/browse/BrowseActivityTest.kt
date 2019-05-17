@@ -22,23 +22,20 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.standalone.StandAloneContext.loadKoinModules
-import org.koin.standalone.inject
+import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
-import org.koin.test.declareMock
+import org.koin.test.mock.declareMock
 
 @RunWith(AndroidJUnit4::class)
-class BrowseActivityTest: KoinTest {
+class BrowseActivityTest : KoinTest {
 
-    val mockBufferooRepository: BufferooRepository by inject()
-
-    @Rule @JvmField
+    @Rule
+    @JvmField
     val activity = ActivityTestRule<BrowseActivity>(BrowseActivity::class.java, false, false)
 
     @Before
     fun setUp() {
         loadKoinModules(applicationModule, browseModule)
-        declareMock<BufferooRepository>()
     }
 
     @Test
@@ -63,21 +60,25 @@ class BrowseActivityTest: KoinTest {
         activity.launchActivity(null)
 
         bufferoos.forEachIndexed { index, bufferoo ->
-            onView(withId(R.id.recycler_browse)).perform(RecyclerViewActions.
-                    scrollToPosition<RecyclerView.ViewHolder>(index))
-            checkBufferooDetailsDisplay(bufferoo, index) }
+            onView(withId(R.id.recycler_browse)).perform(
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(index)
+            )
+            checkBufferooDetailsDisplay(bufferoo, index)
+        }
     }
 
     private fun checkBufferooDetailsDisplay(bufferoo: Bufferoo, position: Int) {
         onView(RecyclerViewMatcher.withRecyclerView(R.id.recycler_browse).atPosition(position))
-                .check(matches(hasDescendant(withText(bufferoo.name))))
+            .check(matches(hasDescendant(withText(bufferoo.name))))
         onView(RecyclerViewMatcher.withRecyclerView(R.id.recycler_browse).atPosition(position))
-                .check(matches(hasDescendant(withText(bufferoo.title))))
+            .check(matches(hasDescendant(withText(bufferoo.title))))
     }
 
     private fun stubBufferooRepositoryGetBufferoos(single: Flowable<List<Bufferoo>>) {
-        whenever(mockBufferooRepository.getBufferoos())
-                .thenReturn(single)
+        // Mock is declared with a stubbing function in order to allow that each repository instance created by the
+        // Koin factory is properly mocked and getBufferos() returns test data.
+        declareMock<BufferooRepository>{
+            whenever(this.getBufferoos()).thenReturn(single)
+        }
     }
-
 }
