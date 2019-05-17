@@ -1,7 +1,7 @@
 package org.buffer.android.boilerplate.remote
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Flowable
 import org.buffer.android.boilerplate.data.browse.Bufferoo
 import org.buffer.android.boilerplate.remote.mapper.BufferooEntityMapper

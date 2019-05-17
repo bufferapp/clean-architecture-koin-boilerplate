@@ -1,17 +1,19 @@
 apply plugin: 'kotlin'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
     def dataDependencies = rootProject.ext.dataDependencies
     def dataTestDependencies = rootProject.ext.dataTestDependencies
 
     implementation dataDependencies.kotlin
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxAndroid
     implementation dataDependencies.rxKotlin
 
     testImplementation dataTestDependencies.junit
     testImplementation dataTestDependencies.kotlinJUnit
-    testImplementation dataTestDependencies.mockito
+    testImplementation dataTestDependencies.mockitoKotlin
     testImplementation dataTestDependencies.assertj
 }

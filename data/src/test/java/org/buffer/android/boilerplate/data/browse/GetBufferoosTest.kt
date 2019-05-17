@@ -1,8 +1,8 @@
 package org.buffer.android.boilerplate.data.browse
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Flowable
 import org.buffer.android.boilerplate.data.browse.interactor.GetBufferoos
 import org.buffer.android.boilerplate.data.executor.PostExecutionThread

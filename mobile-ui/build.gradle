@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -35,7 +36,6 @@ android {
         abortOnError false
         ignoreWarnings true
     }
-
 }
 
 dependencies {
@@ -47,39 +47,39 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.kotlin
-    implementation mobileUiDependencies.rxKotlin
-    implementation mobileUiDependencies.androidAnnotations
-    implementation mobileUiDependencies.appCompatV7
-    implementation mobileUiDependencies.supportRecyclerView
-    implementation mobileUiDependencies.supportDesign
-    implementation mobileUiDependencies.timber
-    implementation mobileUiDependencies.rxAndroid
-    implementation mobileUiDependencies.glide
     implementation mobileUiDependencies.koin
+    implementation mobileUiDependencies.koinCompile
     implementation mobileUiDependencies.koinArch
-    implementation "org.koin:koin-android-scope:1.0.0-RC-1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1" // use kapt for Kotlin
-    // alternately - if using Java8, use the following instead of compiler
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-
-    compile presentationDependencies.archExtensions
-    compile "android.arch.persistence.room:rxjava2:1.1.1"
+    implementation mobileUiDependencies.androidAnnotation
+    implementation mobileUiDependencies.appcompat
+    implementation mobileUiDependencies.recyclerView
+    implementation mobileUiDependencies.materialDesign
+    implementation mobileUiDependencies.lifecycleExtensions
+    implementation mobileUiDependencies.lifecycleCommonJava8
+    implementation mobileUiDependencies.roomRuntime
+    implementation mobileUiDependencies.rxJava
+    implementation mobileUiDependencies.rxAndroid
+    implementation mobileUiDependencies.rxKotlin
+    implementation mobileUiDependencies.glide
+    implementation mobileUiDependencies.timber
 
     testImplementation mobileUiTestDependencies.kotlinJUnit
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
-    androidTestImplementation ('org.koin:koin-test:1.0.0-RC-1', {
-        exclude group: 'org.jetbrains.kotlin'
-        exclude group: 'org.mockito'
-    })
-    testImplementation mobileUiTestDependencies.mockito
+    testImplementation mobileUiTestDependencies.mockitoKotlin
+    testImplementation mobileUiTestDependencies.mockitoInline
 
     // Instrumentation test dependencies
     androidTestImplementation mobileUiTestDependencies.junit
-    androidTestImplementation (mobileUiTestDependencies.mockito, {
+    androidTestImplementation mobileUiTestDependencies.lifecycleTest
+    androidTestImplementation (mobileUiTestDependencies.koinTest, {
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'org.mockito'
+    })
+    androidTestImplementation (mobileUiTestDependencies.mockitoKotlin, {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     })
     androidTestImplementation mobileUiTestDependencies.mockitoAndroid
+    androidTestImplementation mobileUiTestDependencies.androidJUnit
     androidTestImplementation (mobileUiTestDependencies.espressoCore) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }

@@ -11,6 +11,12 @@ android {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         multiDexEnabled = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     dexOptions {
@@ -20,8 +26,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -41,8 +47,6 @@ android {
         disable 'IconDensities'             //For testing purpose. This is safe to remove.
         disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
-
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -52,16 +56,19 @@ dependencies {
     implementation project(':data')
 
     implementation cacheDependencies.kotlin
-    implementation cacheDependencies.rxKotlin
-    implementation cacheDependencies.gson
     implementation cacheDependencies.roomRuntime
     kapt cacheDependencies.roomCompiler
+    implementation cacheDependencies.roomRxJava
+    implementation cacheDependencies.rxJava
+    implementation cacheDependencies.rxKotlin
 
     testImplementation cacheTestDependencies.junit
     testImplementation cacheTestDependencies.kotlinJUnit
-    testImplementation cacheTestDependencies.mockito
     testImplementation cacheTestDependencies.assertj
+    testImplementation cacheTestDependencies.mockitoKotlin
+    testImplementation cacheTestDependencies.testCore
+    testImplementation cacheTestDependencies.androidJUnit
+    testImplementation cacheTestDependencies.androidRunner
     testImplementation cacheTestDependencies.robolectric
-    testImplementation cacheTestDependencies.archTesting
     testImplementation cacheTestDependencies.roomTesting
 }

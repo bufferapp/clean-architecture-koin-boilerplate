@@ -6,10 +6,10 @@ import org.buffer.android.boilerplate.data.browse.Bufferoo
 
 interface BufferooRepository {
 
-    open fun clearBufferoos(): Completable
+    fun clearBufferoos(): Completable
 
-    open fun saveBufferoos(bufferoos: List<Bufferoo>): Completable
+    fun saveBufferoos(bufferoos: List<Bufferoo>): Completable
 
-    open fun getBufferoos(): Flowable<List<Bufferoo>>
+    fun getBufferoos(): Flowable<List<Bufferoo>>
 
 }
